@@ -11,7 +11,7 @@ body{display:grid;place-items:center}
 button{font:inherit}
 .game-shell{position:relative;width:min(100vw,calc(100svh * 1.5));height:min(100svh,calc(100vw / 1.5));aspect-ratio:3/2;overflow:hidden;isolation:isolate;background:#63c4f2;box-shadow:0 0 45px rgba(15,73,113,.22)}
 .scenery{position:absolute;inset:0;background:url('assets/game-bg.svg') center/100% 100% no-repeat;z-index:-4}
-.sky-mask{position:absolute;left:0;right:0;top:0;height:63%;z-index:-3;background:linear-gradient(180deg,rgb(72,183,240) 0%,rgb(89,196,245) 60%,rgb(155,223,250) 100%);border-bottom:1px solid rgba(255,255,255,.55);box-shadow:inset 0 -25px 45px rgba(255,255,255,.2)}
+.sky-mask{position:absolute;left:0;right:0;top:0;height:63%;z-index:-5;background:linear-gradient(180deg,rgb(72,183,240) 0%,rgb(89,196,245) 60%,rgb(155,223,250) 100%);border-bottom:1px solid rgba(255,255,255,.55);box-shadow:inset 0 -25px 45px rgba(255,255,255,.2)}
 
 .monster-art{position:absolute;z-index:-2;object-fit:contain;pointer-events:none;user-select:none}
 .short-art{left:5.86%;top:48.83%;width:36.46%;height:49.80%}
