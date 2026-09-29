@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024">
+<defs>
+  <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#78d950"/><stop offset="1" stop-color="#3eae42"/></linearGradient>
+  <linearGradient id="redFur" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff7855"/><stop offset=".55" stop-color="#ef4e32"/><stop offset="1" stop-color="#c93a2a"/></linearGradient>
+  <linearGradient id="blueFur" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#62c8ff"/><stop offset=".55" stop-color="#248de4"/><stop offset="1" stop-color="#136cc1"/></linearGradient>
+  <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f3ba61"/><stop offset="1" stop-color="#c8792e"/></linearGradient>
+  <radialGradient id="mouth" cx=".5" cy=".38" r=".7"><stop stop-color="#3d0c12"/><stop offset="1" stop-color="#12050a"/></radialGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#174b62" flood-opacity=".24"/></filter>
+  <filter id="soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="10"/></filter>
+</defs>
+
+<!-- meadow -->
+<path d="M0 705 C240 660 410 720 620 688 C850 650 1020 700 1230 674 C1360 658 1455 673 1536 700 L1536 1024 L0 1024Z" fill="url(#grass)"/>
+<path d="M0 783 C220 743 430 800 650 765 C860 732 1080 786 1300 752 C1400 737 1480 745 1536 760 L1536 1024 L0 1024Z" fill="#56c64c" opacity=".75"/>
+
+<!-- distant shrubs -->
+<g opacity=".9">
+  <circle cx="65" cy="710" r="70" fill="#318e3e"/><circle cx="120" cy="696" r="85" fill="#41a945"/>
+  <circle cx="1430" cy="702" r="90" fill="#2f913e"/><circle cx="1490" cy="690" r="78" fill="#45ad47"/>
+  <circle cx="770" cy="706" r="55" fill="#399b42"/>
+</g>
+
+<!-- flowers -->
+<g fill="#fff8e7">
+  <circle cx="86" cy="875" r="8"/><circle cx="152" cy="922" r="7"/><circle cx="694" cy="892" r="7"/><circle cx="1390" cy="900" r="8"/><circle cx="1460" cy="842" r="6"/>
+</g>
+<g fill="#ffd45c">
+  <circle cx="86" cy="875" r="3"/><circle cx="152" cy="922" r="3"/><circle cx="694" cy="892" r="3"/><circle cx="1390" cy="900" r="3"/><circle cx="1460" cy="842" r="3"/>
+</g>
+
+<!-- LEFT monster shadow -->
+<ellipse cx="357" cy="936" rx="265" ry="45" fill="#18485b" opacity=".18"/>
+<g filter="url(#shadow)">
+  <!-- body -->
+  <ellipse cx="350" cy="760" rx="235" ry="220" fill="url(#redFur)" stroke="#b93227" stroke-width="9"/>
+  <!-- furry tufts -->
+  <path d="M175 651l-45-26 31 55-54 3 52 24-37 37 61-10M524 648l45-27-31 56 55 4-53 23 37 39-61-11" fill="#ef5237" stroke="#b93227" stroke-width="7" stroke-linejoin="round"/>
+  <!-- horns -->
+  <path d="M182 615 C125 560 141 505 193 481 C170 539 194 574 230 598Z" fill="#ffd057" stroke="#ce8d1d" stroke-width="8"/>
+  <path d="M518 610 C573 556 559 505 507 482 C529 538 505 573 470 597Z" fill="#ffd057" stroke="#ce8d1d" stroke-width="8"/>
+  <!-- eyes -->
+  <ellipse cx="278" cy="661" rx="58" ry="62" fill="white" stroke="#7b251f" stroke-width="7"/>
+  <ellipse cx="423" cy="661" rx="58" ry="62" fill="white" stroke="#7b251f" stroke-width="7"/>
+  <circle cx="299" cy="673" r="25" fill="#603119"/><circle cx="403" cy="673" r="25" fill="#603119"/>
+  <circle cx="307" cy="664" r="8" fill="white"/><circle cx="411" cy="664" r="8" fill="white"/>
+  <!-- brows -->
+  <path d="M224 611 Q281 583 326 608M375 608 Q423 582 477 612" fill="none" stroke="#8d2d22" stroke-width="14" stroke-linecap="round"/>
+  <!-- mouth -->
+  <ellipse cx="351" cy="797" rx="140" ry="110" fill="url(#mouth)" stroke="#84241f" stroke-width="9"/>
+  <path d="M258 754 Q351 789 444 754" fill="white"/>
+  <path d="M275 850 Q351 807 428 850 Q404 900 351 905 Q298 900 275 850" fill="#f36c7c"/>
+  <!-- teeth -->
+  <path d="M272 755l22 39 24-33 26 39 28-39 26 37 25-42" fill="white" stroke="#ece7de" stroke-width="2"/>
+  <!-- hands -->
+  <ellipse cx="150" cy="831" rx="62" ry="48" fill="#ef563c" stroke="#b93227" stroke-width="8" transform="rotate(-18 150 831)"/>
+  <ellipse cx="551" cy="831" rx="62" ry="48" fill="#ef563c" stroke="#b93227" stroke-width="8" transform="rotate(18 551 831)"/>
+</g>
+
+<!-- RIGHT monster -->
+<ellipse cx="1178" cy="936" rx="265" ry="45" fill="#18485b" opacity=".18"/>
+<g filter="url(#shadow)">
+  <ellipse cx="1184" cy="760" rx="235" ry="220" fill="url(#blueFur)" stroke="#105fae" stroke-width="9"/>
+  <path d="M1013 650l-47-23 34 52-55 8 55 18-31 42 58-17M1353 651l46-25-32 54 55 6-54 20 34 40-61-15" fill="#2797e9" stroke="#105fae" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M1019 610 C968 556 984 507 1035 486 C1010 538 1033 571 1065 598Z" fill="#b978e9" stroke="#7547b1" stroke-width="8"/>
+  <path d="M1348 610 C1397 557 1383 508 1334 486 C1357 538 1336 571 1304 598Z" fill="#b978e9" stroke="#7547b1" stroke-width="8"/>
+  <ellipse cx="1113" cy="660" rx="58" ry="62" fill="white" stroke="#0b4c91" stroke-width="7"/>
+  <ellipse cx="1257" cy="660" rx="58" ry="62" fill="white" stroke="#0b4c91" stroke-width="7"/>
+  <circle cx="1134" cy="673" r="25" fill="#12446c"/><circle cx="1237" cy="673" r="25" fill="#12446c"/>
+  <circle cx="1142" cy="664" r="8" fill="white"/><circle cx="1245" cy="664" r="8" fill="white"/>
+  <path d="M1060 610 Q1115 582 1159 607M1210 607 Q1257 582 1311 612" fill="none" stroke="#0f5ba6" stroke-width="14" stroke-linecap="round"/>
+  <ellipse cx="1185" cy="797" rx="140" ry="110" fill="url(#mouth)" stroke="#0c4d8f" stroke-width="9"/>
+  <path d="M1092 754 Q1185 789 1278 754" fill="white"/>
+  <path d="M1109 850 Q1185 807 1262 850 Q1238 900 1185 905 Q1132 900 1109 850" fill="#f36c7c"/>
+  <path d="M1106 755l22 39 24-33 26 39 28-39 26 37 25-42" fill="white" stroke="#ece7de" stroke-width="2"/>
+  <ellipse cx="984" cy="831" rx="62" ry="48" fill="#2999e8" stroke="#105fae" stroke-width="8" transform="rotate(-18 984 831)"/>
+  <ellipse cx="1385" cy="831" rx="62" ry="48" fill="#2999e8" stroke="#105fae" stroke-width="8" transform="rotate(18 1385 831)"/>
+  <!-- spots -->
+  <g fill="#7d58d8" opacity=".85">
+    <circle cx="1017" cy="724" r="16"/><circle cx="1055" cy="820" r="12"/><circle cx="1343" cy="748" r="15"/><circle cx="1319" cy="842" r="11"/>
+  </g>
+</g>
+
+<!-- wooden boxes in front -->
+<g filter="url(#shadow)">
+  <g transform="translate(95 844)">
+    <rect width="510" height="158" rx="24" fill="url(#wood)" stroke="#97551f" stroke-width="9"/>
+    <path d="M20 42H490M20 91H490" stroke="#b36b2b" stroke-width="6" opacity=".65"/>
+    <circle cx="28" cy="25" r="8" fill="#754016"/><circle cx="482" cy="25" r="8" fill="#754016"/>
+    <rect x="82" y="38" width="345" height="96" rx="20" fill="#fff8df" stroke="#fff" stroke-width="5"/>
+    <text x="255" y="80" text-anchor="middle" font-family="Trebuchet MS,Arial,sans-serif" font-size="41" font-weight="900" fill="#3c1c16">SHORT a</text>
+    <text x="255" y="123" text-anchor="middle" font-family="Trebuchet MS,Arial,sans-serif" font-size="38" font-weight="900" fill="#d3322d">/æ/</text>
+  </g>
+  <g transform="translate(930 844)">
+    <rect width="510" height="158" rx="24" fill="url(#wood)" stroke="#97551f" stroke-width="9"/>
+    <path d="M20 42H490M20 91H490" stroke="#b36b2b" stroke-width="6" opacity=".65"/>
+    <circle cx="28" cy="25" r="8" fill="#754016"/><circle cx="482" cy="25" r="8" fill="#754016"/>
+    <rect x="82" y="38" width="345" height="96" rx="20" fill="#fff8df" stroke="#fff" stroke-width="5"/>
+    <text x="255" y="80" text-anchor="middle" font-family="Trebuchet MS,Arial,sans-serif" font-size="41" font-weight="900" fill="#183a74">MAGIC e</text>
+    <text x="255" y="123" text-anchor="middle" font-family="Trebuchet MS,Arial,sans-serif" font-size="38" font-weight="900" fill="#176fc4">/eɪ/</text>
+  </g>
+</g>
+</svg>
