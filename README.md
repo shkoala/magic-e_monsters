@@ -1,18 +1,34 @@
 # Feed the Monsters — Short a & Magic e
 
-A one-page phonics game for young learners.
+A bright phonics sorting game for young learners.
 
-## Words
-**Short a /æ/**: cat, hat, man, plan, can, tap, mat, cap  
-**Magic e /eɪ/**: snake, lake, mane, plane, game, gate
+## How it works
+A word cookie falls from the sky. Read the word and click the correct monster:
 
-## How to play
-Read the falling cookie and click the correct monster. On a correct answer, the cookie flies into the monster's mouth.
+- **SHORT a /æ/**
+- **MAGIC e /eɪ/**
+
+If the answer is correct, the cookie flies into the monster's mouth. A wrong answer keeps the same cookie on screen so the learner can try again.
+
+## Word bank — 54 words
+
+### Short a /æ/ — 24
+cat, hat, bat, rat, mat, cap, map, tap, nap, can, man, pan, fan, van, jam, ham, bag, tag, sad, mad, dad, plan, clap, flag
+
+### Magic e /eɪ/ — 30
+cape, tape, hate, rate, mate, cane, mane, plane, snake, lake, game, gate, name, same, make, take, cake, date, late, face, race, place, page, cage, wave, cave, save, skate, shape, grape
+
+## Game modes
+- **16** — quick round
+- **24** — classic round
+- **54** — all words
+
+Quick and classic modes choose an equal number of short-a and magic-e words and shuffle them each game.
+
+## Controls
+- Click the left or right monster.
+- Keyboard: **←** for Short a, **→** for Magic e.
+- Sound and fullscreen controls are available in the top-right corner.
 
 ## GitHub Pages
-1. Upload all files and the `assets` folder to a GitHub repository.
-2. Open **Settings → Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**.
-4. Select `main` and `/ (root)`, then Save.
-
-No libraries, build tools, or external fonts are required.
+Open **Settings → Pages**, choose **Deploy from a branch**, then select **main** and **/ (root)**.
