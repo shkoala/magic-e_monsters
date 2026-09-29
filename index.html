@@ -11,7 +11,9 @@
   <main class="game-shell" id="gameShell" aria-label="Feed the Monsters phonics game">
     <div class="scenery" aria-hidden="true"></div>
     <div class="sky-mask" aria-hidden="true">
+      <span class="sun"></span>
       <span class="cloud c1"></span><span class="cloud c2"></span><span class="cloud c3"></span>
+      <span class="spark s1">✦</span><span class="spark s2">✦</span><span class="spark s3">✦</span>
     </div>
 
     <header class="hud">
@@ -20,15 +22,19 @@
         <div class="brand-sub">short <b>a</b> /æ/ &nbsp; • &nbsp; magic <b>e</b> /eɪ/</div>
       </div>
       <div class="stats">
-        <div class="pill" title="Score"><span>⭐</span><b id="score">0</b><small>/14</small></div>
+        <div class="pill score-pill" title="Score"><span>⭐</span><b id="score">0</b><small>/<span id="totalCount">24</span></small></div>
         <div class="pill streak" title="Streak"><span>🔥</span><b id="streak">0</b></div>
         <button class="icon-btn" id="soundBtn" type="button" aria-label="Sound on">🔊</button>
         <button class="icon-btn" id="fullBtn" type="button" aria-label="Fullscreen">⛶</button>
       </div>
     </header>
 
+    <div class="progress-wrap" aria-hidden="true">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
     <section class="playfield" id="playfield" aria-live="polite">
-      <div class="prompt" id="prompt">Read the cookie. Click the right monster!</div>
+      <div class="prompt" id="prompt"><span class="prompt-cookie">🍪</span> Read the word. Feed the right monster!</div>
       <div class="cookie" id="cookie" role="img" aria-label="word cookie">
         <i class="chip ch1"></i><i class="chip ch2"></i><i class="chip ch3"></i><i class="chip ch4"></i><i class="chip ch5"></i><i class="chip ch6"></i>
         <span id="word">cat</span>
@@ -37,20 +43,26 @@
     </section>
 
     <button class="monster-zone left" id="shortMonster" type="button" aria-label="Short a monster">
-      <span class="monster-label"><b>SHORT a</b><small>/æ/</small></span>
+      <span class="monster-label short-label"><b>SHORT a</b><small>/æ/</small><em>cat • hat • man</em></span>
     </button>
     <button class="monster-zone right" id="magicMonster" type="button" aria-label="Magic e monster">
-      <span class="monster-label"><b>MAGIC e</b><small>/eɪ/</small></span>
+      <span class="monster-label magic-label"><b>MAGIC e</b><small>/eɪ/</small><em>cake • name • plane</em></span>
     </button>
 
     <section class="start-card" id="startCard">
       <div class="start-inner">
-        <div class="mini-cookie">a</div>
+        <div class="monster-peek"><span>👾</span><span>🍪</span><span>👾</span></div>
         <h1>Feed the Monsters!</h1>
-        <p>A word cookie is falling. Read it and click the monster with the correct sound.</p>
+        <p>Read the falling cookie and feed it to the monster with the correct <b>a</b> sound.</p>
         <div class="examples">
-          <div><strong>SHORT a /æ/</strong><span>cat • hat • man</span></div>
-          <div><strong>MAGIC e /eɪ/</strong><span>snake • game • plane</span></div>
+          <div class="short-example"><strong>SHORT a /æ/</strong><span>cat • hat • man • cap</span></div>
+          <div class="magic-example"><strong>MAGIC e /eɪ/</strong><span>cake • name • plane • snake</span></div>
+        </div>
+        <div class="mode-title">How many cookies?</div>
+        <div class="mode-picker" role="group" aria-label="Choose number of words">
+          <button class="mode-btn" data-count="16" type="button">16<br><small>QUICK</small></button>
+          <button class="mode-btn active" data-count="24" type="button">24<br><small>CLASSIC</small></button>
+          <button class="mode-btn" data-count="all" type="button">54<br><small>ALL WORDS</small></button>
         </div>
         <button id="startBtn" class="start-btn" type="button">START GAME</button>
       </div>
@@ -61,7 +73,7 @@
         <div class="trophy">🏆</div>
         <h1 id="endTitle">Great job!</h1>
         <p id="endText">You fed all the monsters.</p>
-        <div class="final-score"><span>⭐</span><b id="finalScore">14</b><small>/14</small></div>
+        <div class="final-score"><span>⭐</span><b id="finalScore">24</b><small>/<span id="finalTotal">24</span></small></div>
         <button id="againBtn" class="start-btn" type="button">PLAY AGAIN</button>
       </div>
     </section>
