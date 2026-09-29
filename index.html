@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#48b6ef" />
+  <title>Feed the Monsters — Short a & Magic e</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="game-shell" id="gameShell" aria-label="Feed the Monsters phonics game">
+    <div class="scenery" aria-hidden="true"></div>
+    <div class="sky-mask" aria-hidden="true">
+      <span class="cloud c1"></span><span class="cloud c2"></span><span class="cloud c3"></span>
+    </div>
+
+    <header class="hud">
+      <div class="brand">
+        <div class="brand-top">FEED THE MONSTERS!</div>
+        <div class="brand-sub">short <b>a</b> /æ/ &nbsp; • &nbsp; magic <b>e</b> /eɪ/</div>
+      </div>
+      <div class="stats">
+        <div class="pill" title="Score"><span>⭐</span><b id="score">0</b><small>/14</small></div>
+        <div class="pill streak" title="Streak"><span>🔥</span><b id="streak">0</b></div>
+        <button class="icon-btn" id="soundBtn" type="button" aria-label="Sound on">🔊</button>
+        <button class="icon-btn" id="fullBtn" type="button" aria-label="Fullscreen">⛶</button>
+      </div>
+    </header>
+
+    <section class="playfield" id="playfield" aria-live="polite">
+      <div class="prompt" id="prompt">Read the cookie. Click the right monster!</div>
+      <div class="cookie" id="cookie" role="img" aria-label="word cookie">
+        <i class="chip ch1"></i><i class="chip ch2"></i><i class="chip ch3"></i><i class="chip ch4"></i><i class="chip ch5"></i><i class="chip ch6"></i>
+        <span id="word">cat</span>
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </section>
+
+    <button class="monster-zone left" id="shortMonster" type="button" aria-label="Short a monster">
+      <span class="monster-label"><b>SHORT a</b><small>/æ/</small></span>
+    </button>
+    <button class="monster-zone right" id="magicMonster" type="button" aria-label="Magic e monster">
+      <span class="monster-label"><b>MAGIC e</b><small>/eɪ/</small></span>
+    </button>
+
+    <section class="start-card" id="startCard">
+      <div class="start-inner">
+        <div class="mini-cookie">a</div>
+        <h1>Feed the Monsters!</h1>
+        <p>A word cookie is falling. Read it and click the monster with the correct sound.</p>
+        <div class="examples">
+          <div><strong>SHORT a /æ/</strong><span>cat • hat • man</span></div>
+          <div><strong>MAGIC e /eɪ/</strong><span>snake • game • plane</span></div>
+        </div>
+        <button id="startBtn" class="start-btn" type="button">START GAME</button>
+      </div>
+    </section>
+
+    <section class="end-card hidden" id="endCard">
+      <div class="start-inner end-inner">
+        <div class="trophy">🏆</div>
+        <h1 id="endTitle">Great job!</h1>
+        <p id="endText">You fed all the monsters.</p>
+        <div class="final-score"><span>⭐</span><b id="finalScore">14</b><small>/14</small></div>
+        <button id="againBtn" class="start-btn" type="button">PLAY AGAIN</button>
+      </div>
+    </section>
+
+    <div class="confetti" id="confetti" aria-hidden="true"></div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
