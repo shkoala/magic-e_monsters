@@ -1,34 +1,23 @@
-# Feed the Monsters — Short a & Magic e
+# Phonics Monsters
 
-A bright phonics sorting game for young learners.
+Interactive phonics sorting game for young learners.
 
-## How it works
-A word cookie falls from the sky. Read the word and click the correct monster:
+## How to play
+1. Choose a vowel: **A / E / I / O / U**.
+2. Choose a level: **Easy (16)**, **Medium (24)**, or **Hard (30)**.
+3. Read the falling cookie and click the correct monster.
+4. Correct answer: the cookie flies into the monster's mouth and the monster celebrates.
+5. Wrong answer: the monster shakes its head and the same cookie stays for another try.
 
-- **SHORT a /æ/**
-- **MAGIC e /eɪ/**
+## Vowel patterns
 
-If the answer is correct, the cookie flies into the monster's mouth. A wrong answer keeps the same cookie on screen so the learner can try again.
+- **A:** short a /æ/ vs magic a_e /eɪ/
+- **E:** short e /e/ vs long e /iː/. The current set uses **me, he, she, we, be** and **ee** words such as **tree, sheep, feet**. **EA is intentionally not included yet.**
+- **I:** short i /ɪ/ vs magic i_e /aɪ/
+- **O:** short o /ɒ/ vs magic o_e /əʊ/
+- **U:** short u /ʌ/ vs magic u_e /juː/ or /uː/
 
-## Word bank — 54 words
-
-### Short a /æ/ — 24
-cat, hat, bat, rat, mat, cap, map, tap, nap, can, man, pan, fan, van, jam, ham, bag, tag, sad, mad, dad, plan, clap, flag
-
-### Magic e /eɪ/ — 30
-cape, tape, hate, rate, mate, cane, mane, plane, snake, lake, game, gate, name, same, make, take, cake, date, late, face, race, place, page, cage, wave, cave, save, skate, shape, grape
-
-## Game modes
-- **16** — quick round
-- **24** — classic round
-- **54** — all words
-
-Quick and classic modes choose an equal number of short-a and magic-e words and shuffle them each game.
+Each harder level introduces new words and reviews words from the earlier levels.
 
 ## Controls
-- Click the left or right monster.
-- Keyboard: **←** for Short a, **→** for Magic e.
-- Sound and fullscreen controls are available in the top-right corner.
-
-## GitHub Pages
-Open **Settings → Pages**, choose **Deploy from a branch**, then select **main** and **/ (root)**.
+Click the monsters, or use **←** for the short vowel monster and **→** for the long-vowel monster. Sound and fullscreen controls are available in the top-right corner.
