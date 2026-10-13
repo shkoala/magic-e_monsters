@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Happy orange phonics monster">
+<defs>
+  <radialGradient id="body" cx="40%" cy="30%" r="75%">
+    <stop offset="0" stop-color="#ff9a52"/><stop offset=".52" stop-color="#f4512f"/><stop offset="1" stop-color="#c92d22"/>
+  </radialGradient>
+  <linearGradient id="horn" x1="0" x2="1" y1="0" y2="1">
+    <stop stop-color="#fff1a4"/><stop offset=".48" stop-color="#ffc846"/><stop offset="1" stop-color="#e58b20"/>
+  </linearGradient>
+  <radialGradient id="mouth" cx="50%" cy="40%" r="70%">
+    <stop stop-color="#4e0a0f"/><stop offset="1" stop-color="#170307"/>
+  </radialGradient>
+  <linearGradient id="tongue" x1="0" y1="0" x2="0" y2="1">
+    <stop stop-color="#ff8c75"/><stop offset="1" stop-color="#e74e51"/>
+  </linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+    <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#74311c" flood-opacity=".3"/>
+  </filter>
+</defs>
+<ellipse cx="256" cy="470" rx="170" ry="24" fill="#4a6b39" opacity=".18"/>
+<g filter="url(#shadow)">
+  <path d="M123 165c-25-34-19-73 20-102 9 43 31 62 62 68z" fill="url(#horn)" stroke="#c8781e" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M389 165c25-34 19-73-20-102-9 43-31 62-62 68z" fill="url(#horn)" stroke="#c8781e" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M139 125l-19-35m247 35 19-35" stroke="#ffd96a" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+  <path d="M115 203c-38 36-50 104-32 161 11 37 37 76 76 92 23 9 53 8 95 8s72 1 95-8c39-16 65-55 76-92 18-57 6-125-32-161-32-30-81-47-138-47s-108 17-140 47z" fill="url(#body)" stroke="#b92b20" stroke-width="9"/>
+  <path d="M124 214l-35-13 26 36-41 2 39 19-29 27 45-8m254-63 35-13-26 36 41 2-39 19 29 27-45-8" fill="#ef4b31" stroke="#b92b20" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M188 164l20-33 20 23 25-38 22 36 23-25 20 37" fill="#f95c37" stroke="#c33123" stroke-width="6" stroke-linejoin="round"/>
+  <ellipse cx="190" cy="214" rx="64" ry="67" fill="#fff" stroke="#a92b22" stroke-width="7"/>
+  <ellipse cx="322" cy="214" rx="64" ry="67" fill="#fff" stroke="#a92b22" stroke-width="7"/>
+  <circle cx="213" cy="225" r="29" fill="#6d3418"/><circle cx="299" cy="225" r="29" fill="#6d3418"/>
+  <circle cx="218" cy="219" r="14" fill="#20130d"/><circle cx="294" cy="219" r="14" fill="#20130d"/>
+  <circle cx="225" cy="208" r="7" fill="#fff"/><circle cx="301" cy="208" r="7" fill="#fff"/>
+  <path d="M147 158q43-31 88-4m42 0q45-27 88 4" fill="none" stroke="#8e251c" stroke-width="13" stroke-linecap="round"/>
+  <ellipse cx="256" cy="328" rx="143" ry="113" fill="url(#mouth)" stroke="#92241d" stroke-width="9"/>
+  <path d="M135 292q121 53 242 0" fill="#fff"/>
+  <path d="M147 292l25 42 25-34 29 43 30-40 29 40 28-43 27 34 25-42" fill="#fff" stroke="#eee5d8" stroke-width="2"/>
+  <path d="M174 385q82-67 164 0c-24 37-51 52-82 52s-58-15-82-52z" fill="url(#tongue)"/>
+  <path d="M256 371v54" stroke="#c43d48" stroke-width="5" opacity=".6"/>
+  <path d="M96 303c-58 7-82 50-57 81 17 21 46 15 80-9" fill="#ef5134" stroke="#b92b20" stroke-width="8" stroke-linecap="round"/>
+  <path d="M416 303c58 7 82 50 57 81-17 21-46 15-80-9" fill="#ef5134" stroke="#b92b20" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="55" cy="355" r="14" fill="#ff714b"/><circle cx="76" cy="337" r="13" fill="#ff714b"/><circle cx="457" cy="355" r="14" fill="#ff714b"/><circle cx="436" cy="337" r="13" fill="#ff714b"/>
+  <ellipse cx="175" cy="453" rx="66" ry="26" fill="#d93a28" stroke="#a7281f" stroke-width="6"/>
+  <ellipse cx="337" cy="453" rx="66" ry="26" fill="#d93a28" stroke="#a7281f" stroke-width="6"/>
+  <path d="M145 452l13-15 13 15 14-15 13 15m116 0 13-15 13 15 14-15 13 15" fill="#ffe7aa" stroke="#c78a41" stroke-width="3"/>
+  <circle cx="137" cy="243" r="17" fill="#d93826" opacity=".72"/><circle cx="375" cy="252" r="13" fill="#d93826" opacity=".7"/>
+  <circle cx="157" cy="404" r="14" fill="#d93a28" opacity=".72"/><circle cx="359" cy="412" r="16" fill="#d93a28" opacity=".7"/>
+</g>
+</svg>
