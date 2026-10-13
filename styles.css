@@ -352,3 +352,25 @@ button{font:inherit}
   .monster-art,.monster-zone.good .monster-art,.monster-zone.bad .monster-art,
   .monster-zone.good::after,.monster-zone.bad::after,.cookie.falling,.confetti i{animation:none!important}
 }
+
+
+/* 2026-10-13 monster visibility + polish */
+.monster-zone{overflow:visible}
+.monster-art{
+  z-index:2 !important;
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  width:min(98%,470px);
+  max-height:96%;
+  bottom:48px;
+}
+.monster-card{z-index:5}
+.monster-zone.left .monster-art{left:49%}
+.monster-zone.right .monster-art{left:51%}
+.monster-zone:hover .monster-art{transform:translateX(-50%) translateY(-5px) scale(1.025)}
+.monster-zone.good .monster-art{filter:drop-shadow(0 0 22px rgba(255,238,118,.85))}
+.monster-zone.bad .monster-art{filter:drop-shadow(0 0 14px rgba(255,120,120,.55))}
+@media (max-width:760px){
+  .monster-art{width:105%;bottom:42px;max-height:94%}
+}
