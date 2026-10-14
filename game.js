@@ -72,6 +72,7 @@ const progressBar = $('#progressBar');
 const scoreEl = $('#score');
 const totalEl = $('#total');
 const streakEl = $('#streak');
+const menuBtn = $('#menuBtn');
 
 let selectedLetter = 'A';
 let selectedLevel = 'easy';
@@ -326,7 +327,31 @@ function burst(n) {
   }
 }
 
-$$('.letter-btn').forEach(btn => btn.addEventListener('click', function(){
+function returnToMenu() {
+  clearTimeout(fallTimer);
+  locked = true;
+  current = null;
+  deck = [];
+  round = 0;
+  score = 0;
+  streak = 0;
+
+  scoreEl.textContent = '0';
+  streakEl.textContent = '0';
+  progressBar.style.width = '0%';
+
+  cookie.className = 'cookie';
+  cookie.style.opacity = '0';
+  cookie.style.transition = 'none';
+  cookie.style.top = '-135px';
+
+  feedback.className = 'feedback';
+  endScreen.classList.add('hidden');
+  startScreen.classList.remove('hidden');
+  updateSelectionUI();
+}
+
+$('.letter-btn').forEach(btn => btn.addEventListener('click', function(){
   selectedLetter = btn.dataset.letter;
   updateSelectionUI();
 }));
@@ -338,6 +363,9 @@ $$('.level-btn').forEach(btn => btn.addEventListener('click', function(){
 shortMonster.addEventListener('click', function(){ choose('short', shortMonster); });
 longMonster.addEventListener('click', function(){ choose('long', longMonster); });
 $('#startBtn').addEventListener('click', startGame);
+menuBtn.addEventListener('click', function(){
+  if (confirm('Return to menu? The current game will end.')) returnToMenu();
+});
 $('#playAgainBtn').addEventListener('click', function(){
   endScreen.classList.add('hidden');
   startScreen.classList.remove('hidden');
@@ -354,6 +382,7 @@ $('#fullBtn').addEventListener('click', function(){
 document.addEventListener('keydown', function(e){
   if (e.key === 'ArrowLeft') choose('short', shortMonster);
   if (e.key === 'ArrowRight') choose('long', longMonster);
+  if (e.key === 'Escape') returnToMenu();
 });
 
 updateSelectionUI();
