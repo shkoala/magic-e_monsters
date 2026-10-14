@@ -374,3 +374,110 @@ button{font:inherit}
 @media (max-width:760px){
   .monster-art{width:105%;bottom:42px;max-height:94%}
 }
+
+
+/* ===== 2026-10-14 exact monster artwork + mouth animation ===== */
+.menu-btn{
+  height:54px;
+  padding:0 14px;
+  border-radius:18px;
+  border:3px solid rgba(255,255,255,.95);
+  background:rgba(255,252,242,.96);
+  color:#173b76;
+  font-size:15px;
+  font-weight:1000;
+  box-shadow:0 8px 18px rgba(38,86,122,.18);
+  cursor:pointer;
+  transition:.16s transform,.16s box-shadow;
+}
+.menu-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px rgba(38,86,122,.22);
+}
+.menu-btn:active{transform:translateY(1px)}
+
+.monster-zone{
+  overflow:visible;
+}
+.monster-art{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:min(98%,470px)!important;
+  max-height:96%!important;
+  bottom:48px!important;
+  object-fit:contain;
+}
+.monster-zone.left .monster-art{left:49%!important}
+.monster-zone.right .monster-art{left:51%!important}
+
+.mouth-layer{
+  z-index:4!important;
+  pointer-events:none;
+  opacity:1!important;
+  will-change:transform;
+}
+.monster-base{z-index:3!important}
+.mouth-short{
+  clip-path:ellipse(25% 20% at 51% 48%);
+}
+.mouth-magic{
+  clip-path:ellipse(27% 21% at 51% 49%);
+}
+.monster-card{z-index:7!important}
+
+.monster-zone.good .monster-base{
+  animation:exactHappyBounce .82s cubic-bezier(.2,.78,.18,1.12) 1!important;
+}
+.monster-zone.good .mouth-layer{
+  animation:exactMouthChomp .82s ease-in-out 1!important;
+}
+.monster-zone.bad .monster-base,
+.monster-zone.bad .mouth-layer{
+  animation:exactNoNo .58s ease-in-out 1!important;
+}
+.monster-zone.good .monster-card{
+  background:linear-gradient(#fffef8,#ecffd9)!important;
+  box-shadow:0 8px 18px rgba(56,49,22,.18),0 0 0 4px rgba(141,225,91,.28)!important;
+}
+.monster-zone.bad .monster-card{
+  background:linear-gradient(#fffef8,#ffe8e8)!important;
+  box-shadow:0 8px 18px rgba(56,49,22,.18),0 0 0 4px rgba(255,110,110,.20)!important;
+}
+
+@keyframes exactHappyBounce{
+  0%{transform:translateX(-50%) translateY(0) scale(1) rotate(0)}
+  18%{transform:translateX(-50%) translateY(-15px) scale(1.04) rotate(-2deg)}
+  38%{transform:translateX(-50%) translateY(-34px) scale(1.075) rotate(2deg)}
+  58%{transform:translateX(-50%) translateY(-7px) scale(1.02) rotate(-1deg)}
+  76%{transform:translateX(-50%) translateY(-20px) scale(1.05) rotate(1.5deg)}
+  100%{transform:translateX(-50%) translateY(0) scale(1) rotate(0)}
+}
+@keyframes exactMouthChomp{
+  0%{transform:translateX(-50%) translateY(0) scale(1,1)}
+  12%{transform:translateX(-50%) translateY(-10px) scale(1.025,1.13)}
+  24%{transform:translateX(-50%) translateY(-17px) scale(1.03,.91)}
+  36%{transform:translateX(-50%) translateY(-27px) scale(1.06,1.16)}
+  50%{transform:translateX(-50%) translateY(-12px) scale(1.025,.90)}
+  64%{transform:translateX(-50%) translateY(-17px) scale(1.045,1.14)}
+  78%{transform:translateX(-50%) translateY(-10px) scale(1.025,.93)}
+  100%{transform:translateX(-50%) translateY(0) scale(1,1)}
+}
+@keyframes exactNoNo{
+  0%{transform:translateX(-50%) rotate(0)}
+  14%{transform:translateX(-50%) rotate(-7deg)}
+  29%{transform:translateX(-50%) rotate(7deg)}
+  44%{transform:translateX(-50%) rotate(-6deg)}
+  59%{transform:translateX(-50%) rotate(6deg)}
+  76%{transform:translateX(-50%) rotate(-3deg)}
+  100%{transform:translateX(-50%) rotate(0)}
+}
+
+@media(max-width:850px){
+  .menu-btn{height:48px;padding:0 11px;font-size:13px}
+}
+@media(max-width:650px){
+  .menu-btn{height:44px;padding:0 9px;font-size:0}
+  .menu-btn::before{content:"🏠";font-size:20px}
+  .monster-art{width:104%!important;bottom:43px!important}
+}
