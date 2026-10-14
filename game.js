@@ -83,6 +83,9 @@ let streak = 0;
 let current = null;
 let locked = true;
 let fallTimer = null;
+let wrongResumeTimer = null;
+let fallDeadline = 0;
+let fallDurationMs = 0;
 let soundOn = true;
 let ctx = null;
 
@@ -200,6 +203,7 @@ function startGame() {
 
 function nextCookie() {
   clearTimeout(fallTimer);
+  clearTimeout(wrongResumeTimer);
   if (round >= deck.length) { finish(); return; }
 
   current = deck[round];
@@ -207,18 +211,21 @@ function nextCookie() {
   wordEl.textContent = current.word;
   cookie.className = 'cookie';
   cookie.style.transition = 'none';
+  cookie.style.marginLeft = '0px';
   cookie.style.opacity = '1';
 
   const x = 25 + Math.random() * 50;
+  fallDurationMs = 7200 + Math.random() * 1250;
   cookie.style.left = x + '%';
   cookie.style.top = '-135px';
   cookie.style.transform = 'translateX(-50%) rotate(-5deg) scale(1)';
-  cookie.style.setProperty('--drop', (7.2 + Math.random() * 1.25) + 's');
+  cookie.style.setProperty('--drop', (fallDurationMs / 1000) + 's');
   void cookie.offsetWidth;
   cookie.classList.add('falling');
 
   progressBar.style.width = (round / deck.length * 100) + '%';
-  fallTimer = setTimeout(function(){ if (!locked) missed(); }, 8100);
+  fallDeadline = performance.now() + fallDurationMs;
+  fallTimer = setTimeout(function(){ if (!locked) missed(); }, fallDurationMs + 120);
 }
 
 function showFeedback(text, bad) {
@@ -228,9 +235,13 @@ function showFeedback(text, bad) {
 }
 
 function missed() {
-  locked = true; streak = 0; streakEl.textContent = '0';
+  locked = true;
+  clearTimeout(fallTimer);
+  clearTimeout(wrongResumeTimer);
+  streak = 0; streakEl.textContent = '0';
   showFeedback('Too slow! 🍪', true); badSound();
   cookie.classList.remove('falling');
+  cookie.getAnimations().forEach(function(a){ a.cancel(); });
   cookie.style.transition = '.35s ease';
   cookie.style.opacity = '0';
   setTimeout(function(){ round++; nextCookie(); }, 730);
@@ -243,60 +254,113 @@ function choose(type, monster) {
 }
 
 function wrong(monster) {
-  streak = 0; streakEl.textContent = '0'; badSound();
-  monster.classList.remove('good','bad');
+  if (locked || !current) return;
+
+  locked = true;
+  streak = 0;
+  streakEl.textContent = '0';
+  badSound();
+
+  const itemAtMistake = current;
+  const animations = cookie.getAnimations();
+  const fallAnimation = animations.find(function(a){ return a.animationName === 'drop'; }) || animations[0];
+  const remaining = Math.max(1100, fallDeadline - performance.now());
+
+  clearTimeout(fallTimer);
+  clearTimeout(wrongResumeTimer);
+  if (fallAnimation) fallAnimation.pause();
+
+  monster.classList.remove('good','bad','feeding');
   void monster.offsetWidth;
   monster.classList.add('bad');
-  setTimeout(function(){ monster.classList.remove('bad'); }, 650);
-  cookie.classList.remove('wrong');
-  void cookie.offsetWidth;
-  cookie.classList.add('wrong');
-  showFeedback('Try the other monster!', true);
+  setTimeout(function(){ monster.classList.remove('bad'); }, 620);
+
+  cookie.animate(
+    [
+      { marginLeft: '0px' },
+      { marginLeft: '-18px' },
+      { marginLeft: '18px' },
+      { marginLeft: '-12px' },
+      { marginLeft: '12px' },
+      { marginLeft: '0px' }
+    ],
+    { duration: 430, easing: 'ease-in-out' }
+  );
+
+  showFeedback('Try again!', true);
+
+  wrongResumeTimer = setTimeout(function(){
+    if (current !== itemAtMistake || startScreen.classList.contains('hidden') === false) return;
+    if (fallAnimation) fallAnimation.play();
+    locked = false;
+    fallDeadline = performance.now() + remaining;
+    fallTimer = setTimeout(function(){ if (!locked) missed(); }, remaining + 120);
+  }, 720);
 }
 
 function correct(monster) {
-  locked = true; clearTimeout(fallTimer);
-  score++; streak++;
+  locked = true;
+  clearTimeout(fallTimer);
+  clearTimeout(wrongResumeTimer);
+
+  score++;
+  streak++;
   scoreEl.textContent = String(score);
   streakEl.textContent = String(streak);
   goodSound();
 
-  monster.classList.remove('good','bad');
+  monster.classList.remove('good','bad','feeding');
   void monster.offsetWidth;
-  monster.classList.add('good');
-  setTimeout(function(){ monster.classList.remove('good'); }, 820);
+  monster.classList.add('feeding');
 
   cookie.classList.remove('falling','wrong');
+  cookie.getAnimations().forEach(function(a){ a.cancel(); });
+
   flyCookie(monster).then(function(){
+    monster.classList.remove('feeding');
+    void monster.offsetWidth;
+    monster.classList.add('good');
+    setTimeout(function(){ monster.classList.remove('good'); }, 780);
+
     crunch();
     showFeedback(streak >= 5 ? 'AMAZING! ×' + streak : streak >= 3 ? 'Super! ×' + streak : 'Yum! ✓', false);
     if (streak >= 3) burst(Math.min(26, 10 + streak * 2));
     round++;
     progressBar.style.width = (round / deck.length * 100) + '%';
-    setTimeout(nextCookie, 470);
+    setTimeout(nextCookie, 520);
   });
 }
 
 function flyCookie(monster) {
   return new Promise(function(resolve){
     const c = cookie.getBoundingClientRect();
-    const m = monster.getBoundingClientRect();
+    const img = monster.querySelector('.monster-base') || monster;
+    const m = img.getBoundingClientRect();
     const g = game.getBoundingClientRect();
-    const targetX = (m.left + m.width / 2) - g.left;
-    const targetY = (m.top + m.height * .37) - g.top;
+
+    const targetX = (m.left + m.width * .50) - g.left;
+    const targetY = (m.top + m.height * .50) - g.top;
     const centerX = (c.left + c.width / 2) - g.left;
     const centerY = (c.top + c.height / 2) - g.top;
 
     cookie.style.left = centerX + 'px';
     cookie.style.top = centerY + 'px';
-    cookie.style.transform = 'translate(-50%,-50%) rotate(0) scale(1)';
+    cookie.style.marginLeft = '0px';
+    cookie.style.transform = 'translate(-50%,-50%) rotate(0deg) scale(1)';
+    cookie.style.opacity = '1';
     void cookie.offsetWidth;
-    cookie.style.transition = 'left .62s cubic-bezier(.2,.9,.2,1), top .62s cubic-bezier(.2,.9,.2,1), transform .62s ease, opacity .56s ease';
+
+    cookie.style.transition =
+      'left .58s cubic-bezier(.22,.9,.24,1), ' +
+      'top .58s cubic-bezier(.22,.9,.24,1), ' +
+      'transform .58s ease-in, opacity .14s linear .43s';
+
     cookie.style.left = targetX + 'px';
     cookie.style.top = targetY + 'px';
-    cookie.style.transform = 'translate(-50%,-50%) rotate(25deg) scale(.16)';
-    cookie.style.opacity = '.04';
-    setTimeout(resolve, 640);
+    cookie.style.transform = 'translate(-50%,-50%) rotate(18deg) scale(.12)';
+    cookie.style.opacity = '0';
+
+    setTimeout(resolve, 600);
   });
 }
 
@@ -329,6 +393,7 @@ function burst(n) {
 
 function returnToMenu() {
   clearTimeout(fallTimer);
+  clearTimeout(wrongResumeTimer);
   locked = true;
   current = null;
   deck = [];
