@@ -481,3 +481,86 @@ button{font:inherit}
   .menu-btn::before{content:"🏠";font-size:20px}
   .monster-art{width:104%!important;bottom:43px!important}
 }
+
+
+/* ===== 2026-10-14 final exact-monster pass ===== */
+.hud-right{gap:8px}
+.menu-btn{
+  height:54px;
+  padding:0 14px;
+  border-radius:18px;
+  border:3px solid rgba(255,255,255,.95);
+  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,247,222,.96));
+  color:#173b76;
+  font-size:15px;
+  font-weight:1000;
+  box-shadow:0 8px 18px rgba(24,76,113,.20),inset 0 -4px 0 rgba(207,151,52,.15);
+  cursor:pointer;
+}
+.menu-btn:hover{transform:translateY(-2px)}
+.menu-btn:active{transform:translateY(1px)}
+
+.monster-zone{overflow:visible}
+.monster-base,.mouth-layer{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:min(94%,455px)!important;
+  max-height:94%!important;
+  bottom:50px!important;
+  object-fit:contain!important;
+}
+.monster-base{z-index:3!important}
+.mouth-layer{
+  z-index:4!important;
+  pointer-events:none!important;
+  transform-origin:50% 52%!important;
+  will-change:transform;
+}
+.mouth-short{clip-path:ellipse(30% 24% at 50% 50%)}
+.mouth-magic{clip-path:ellipse(30% 24% at 50% 50%)}
+.monster-card{z-index:7!important}
+
+.monster-zone.good .monster-base{
+  animation:monsterJumpFinal .86s cubic-bezier(.2,.78,.18,1.12) 1!important;
+}
+.monster-zone.good .mouth-layer{
+  animation:mouthChompFinal .86s ease-in-out 1!important;
+}
+.monster-zone.bad .monster-base,
+.monster-zone.bad .mouth-layer{
+  animation:monsterNoFinal .6s ease-in-out 1!important;
+}
+
+@keyframes monsterJumpFinal{
+  0%{transform:translateX(-50%) translateY(0) scale(1) rotate(0)}
+  18%{transform:translateX(-50%) translateY(-13px) scale(1.035) rotate(-2deg)}
+  38%{transform:translateX(-50%) translateY(-31px) scale(1.07) rotate(2deg)}
+  60%{transform:translateX(-50%) translateY(-7px) scale(1.02) rotate(-1deg)}
+  78%{transform:translateX(-50%) translateY(-18px) scale(1.045) rotate(1deg)}
+  100%{transform:translateX(-50%) translateY(0) scale(1) rotate(0)}
+}
+@keyframes mouthChompFinal{
+  0%{transform:translateX(-50%) translateY(0) scale(1,1)}
+  14%{transform:translateX(-50%) translateY(-8px) scale(1.01,1.16)}
+  27%{transform:translateX(-50%) translateY(-14px) scale(1.02,.82)}
+  40%{transform:translateX(-50%) translateY(-24px) scale(1.04,1.20)}
+  54%{transform:translateX(-50%) translateY(-10px) scale(1.02,.80)}
+  67%{transform:translateX(-50%) translateY(-15px) scale(1.03,1.17)}
+  80%{transform:translateX(-50%) translateY(-8px) scale(1.01,.86)}
+  100%{transform:translateX(-50%) translateY(0) scale(1,1)}
+}
+@keyframes monsterNoFinal{
+  0%{transform:translateX(-50%) rotate(0)}
+  15%{transform:translateX(-50%) rotate(-7deg)}
+  30%{transform:translateX(-50%) rotate(7deg)}
+  45%{transform:translateX(-50%) rotate(-6deg)}
+  60%{transform:translateX(-50%) rotate(6deg)}
+  78%{transform:translateX(-50%) rotate(-3deg)}
+  100%{transform:translateX(-50%) rotate(0)}
+}
+@media(max-width:650px){
+  .menu-btn{height:44px;padding:0 10px;font-size:0}
+  .menu-btn::before{content:"🏠";font-size:20px}
+  .monster-base,.mouth-layer{width:102%!important;bottom:43px!important}
+}
