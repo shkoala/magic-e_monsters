@@ -164,7 +164,7 @@ function updateSelectionUI() {
   const bank = wordsThrough(selectedLetter, selectedLevel);
   const bankSize = bank.short.length + bank.long.length;
 
-  $$('.letter-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.letter === selectedLetter));
+  $$$('.letter-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.letter === selectedLetter));
   $$('.level-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.level === selectedLevel));
 
   $('#currentMode').textContent = selectedLetter + ' • ' + selectedLevel.toUpperCase();
