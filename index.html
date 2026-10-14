@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#55b9ff" />
   <title>Phonics Monsters</title>
-  <link rel="stylesheet" href="styles.css?v=20261013-2" />
+  <link rel="stylesheet" href="styles.css?v=20261014-3" />
 </head>
 <body>
   <main class="game-shell" id="gameShell" aria-label="Phonics Monsters game">
@@ -22,7 +22,7 @@
         <div class="pill mode-pill"><span id="currentMode">A • EASY</span></div>
         <div class="pill" title="Score"><span>⭐</span><b id="score">0</b><small>/<span id="total">16</span></small></div>
         <div class="pill streak-pill" title="Streak"><span>🔥</span><b id="streak">0</b></div>
-        <button class="icon-btn" id="soundBtn" type="button" aria-label="Sound on">🔊</button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Return to menu">🏠 Menu</button>\n        <button class="icon-btn" id="soundBtn" type="button" aria-label="Sound on">🔊</button>
         <button class="icon-btn" id="fullBtn" type="button" aria-label="Fullscreen">⛶</button>
       </div>
     </header>
@@ -42,7 +42,7 @@
     </section>
 
     <button class="monster-zone left" id="shortMonster" type="button" aria-label="Short vowel monster">
-      <img src="assets/monster-short-v2.svg?v=2" alt="" class="monster-art short-art" />
+      <img src="assets/monster-short-exact.webp?v=3" alt="" class="monster-art short-art monster-base" />\n      <img src="assets/monster-short-exact.webp?v=3" alt="" class="monster-art short-art mouth-layer mouth-short" aria-hidden="true" />
       <div class="monster-card short-card">
         <strong id="shortTitle">SHORT A</strong>
         <small id="shortSound">/æ/</small>
@@ -51,7 +51,7 @@
     </button>
 
     <button class="monster-zone right" id="longMonster" type="button" aria-label="Long vowel monster">
-      <img src="assets/monster-magic-v2.svg?v=2" alt="" class="monster-art magic-art" />
+      <img src="assets/monster-magic-exact.webp?v=3" alt="" class="monster-art magic-art monster-base" />\n      <img src="assets/monster-magic-exact.webp?v=3" alt="" class="monster-art magic-art mouth-layer mouth-magic" aria-hidden="true" />
       <div class="monster-card magic-card">
         <strong id="longTitle">MAGIC A_E</strong>
         <small id="longSound">/eɪ/</small>
@@ -121,6 +121,6 @@
 
     <div class="confetti" id="confetti" aria-hidden="true"></div>
   </main>
-  <script src="game.js?v=20261013-2"></script>
+  <script src="game.js?v=20261014-3"></script>
 </body>
 </html>
