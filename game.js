@@ -326,7 +326,7 @@ function correct(monster) {
   cookie.style.opacity = '1';
   cookie.style.clipPath = 'none';
 
-  monster.classList.remove('good','bad','feeding','chewing');
+  monster.classList.remove('good','bad','feeding','chewing','bite');
   void monster.offsetWidth;
   monster.classList.add('feeding');
 
@@ -377,23 +377,34 @@ function animateAndCommit(el, frames, options) {
   });
 }
 
-function pulseMouth(monster, biteNumber) {
-  return new Promise(function(resolve){
-    monster.classList.remove('bite');
-    void monster.offsetWidth;
-    monster.classList.add('bite');
+function chompMonster(monster, biteNumber) {
+  const img = monster.querySelector('.monster-base') || monster;
+  const n = biteNumber || 1;
 
-    const delay = 165 + (biteNumber || 1) * 6;
-    setTimeout(function(){
-      monster.classList.remove('bite');
+  return new Promise(function(resolve){
+    const anim = img.animate(
+      [
+        { transform:'translateX(-50%) translateY(0) scale(1,1)', offset:0 },
+        { transform:'translateX(-50%) translateY(2px) scale(1.018,.965)', offset:.42 },
+        { transform:'translateX(-50%) translateY(-2px) scale(.996,1.018)', offset:.72 },
+        { transform:'translateX(-50%) translateY(0) scale(1,1)', offset:1 }
+      ],
+      {
+        duration:165 + n * 5,
+        easing:'ease-in-out'
+      }
+    );
+
+    anim.onfinish = function(){
+      anim.cancel();
       resolve();
-    }, delay);
+    };
   });
 }
 
 async function biteCookie(monster, mouthX, mouthY, scaleBefore, scaleAfter, clipShape, biteNumber) {
-  const inY = mouthY + 3;
-  const outY = mouthY - 9;
+  const inY = mouthY + 1;
+  const outY = mouthY - 6;
 
   const cookieIn = animateAndCommit(
     cookie,
@@ -414,7 +425,7 @@ async function biteCookie(monster, mouthX, mouthY, scaleBefore, scaleAfter, clip
     { duration:105, easing:'ease-in', fill:'forwards' }
   );
 
-  await Promise.all([cookieIn, pulseMouth(monster, biteNumber)]);
+  await Promise.all([cookieIn, chompMonster(monster, biteNumber)]);
 
   cookie.style.clipPath = clipShape;
   spawnBiteCrumbs(mouthX + 8, mouthY + 3);
@@ -451,8 +462,8 @@ async function flyCookie(monster, startX, startY) {
 
   // Precise mouth anchors for the two exact monster artworks.
   // These are intentionally above the image centre: right inside the open mouth.
-  const mouthX = (m.left + m.width * (isShortMonster ? .535 : .505)) - g.left;
-  const mouthY = (m.top + m.height * (isShortMonster ? .435 : .455)) - g.top;
+  const mouthX = (m.left + m.width * (isShortMonster ? .525 : .505)) - g.left;
+  const mouthY = (m.top + m.height * (isShortMonster ? .405 : .425)) - g.top;
 
   await animateAndCommit(
     cookie,
@@ -500,7 +511,7 @@ async function flyCookie(monster, startX, startY) {
       },
       {
         left:mouthX + 'px',
-        top:(mouthY + 4) + 'px',
+        top:(mouthY + 2) + 'px',
         transform:'translate(-50%,-50%) rotate(12deg) scale(.06)',
         opacity:'0',
         clipPath:bite3
