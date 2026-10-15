@@ -658,3 +658,22 @@ button{font:inherit}
   0%{transform:translate(-50%,-50%) scale(1);opacity:1}
   100%{transform:translate(calc(-50% + var(--crumb-x)),calc(-50% + var(--crumb-y))) scale(.3);opacity:0}
 }
+
+
+/* ===== 2026-10-15 crisp real-chewing pass ===== */
+.monster-zone.chewing .monster-base{
+  animation:finalChewMouthBody .46s ease-in-out 1!important;
+}
+@keyframes finalChewMouthBody{
+  0%{transform:translateX(-50%) translateY(0) scale(1,1)}
+  18%{transform:translateX(-50%) translateY(4px) scale(1.03,.955)}
+  36%{transform:translateX(-50%) translateY(-3px) scale(.995,1.025)}
+  54%{transform:translateX(-50%) translateY(4px) scale(1.03,.955)}
+  72%{transform:translateX(-50%) translateY(-2px) scale(.997,1.02)}
+  100%{transform:translateX(-50%) translateY(0) scale(1,1)}
+}
+.bite-crumb{
+  box-shadow:
+    inset 0 1px 0 rgba(255,236,181,.8),
+    0 1px 2px rgba(94,50,10,.18);
+}
