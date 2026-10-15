@@ -765,3 +765,30 @@ button{font:inherit}
   0%,100%{transform:translateX(-50%) translateY(0) scale(1)}
   50%{transform:translateX(-50%) translateY(1px) scale(1.008,.995)}
 }
+
+
+/* ===== 2026-10-15 remove duplicate face layers ===== */
+.mouth-layer,
+.mouth-upper,
+.mouth-lower{
+  display:none!important;
+}
+
+/* Success animation uses ONLY the original monster image.
+   No duplicated eyes / face layers. */
+.monster-zone.feeding .monster-base{
+  animation:cleanLean .40s ease-out 1!important;
+}
+.monster-zone.chewing .monster-base{
+  animation:cleanChewOnly .34s ease-in-out 2!important;
+}
+@keyframes cleanLean{
+  0%{transform:translateX(-50%) translateY(0) scale(1)}
+  65%{transform:translateX(-50%) translateY(-3px) scale(1.008)}
+  100%{transform:translateX(-50%) translateY(0) scale(1)}
+}
+@keyframes cleanChewOnly{
+  0%,100%{transform:translateX(-50%) translateY(0) scale(1,1)}
+  45%{transform:translateX(-50%) translateY(2px) scale(1.018,.968)}
+  70%{transform:translateX(-50%) translateY(-2px) scale(.997,1.016)}
+}
