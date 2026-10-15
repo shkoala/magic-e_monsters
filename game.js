@@ -377,29 +377,23 @@ function animateAndCommit(el, frames, options) {
   });
 }
 
-function chompMonster(img, strength) {
-  const s = strength || 1;
-  const squashX = (1 + .028 * s).toFixed(3);
-  const squashY = (1 - .045 * s).toFixed(3);
-  const liftY = (1 + .018 * s).toFixed(3);
-
+function pulseMouth(monster, biteNumber) {
   return new Promise(function(resolve){
-    const anim = img.animate(
-      [
-        { transform:'translateX(-50%) translateY(0) scale(1,1)', offset:0 },
-        { transform:'translateX(-50%) translateY(' + (4*s) + 'px) scale(' + squashX + ',' + squashY + ')', offset:.34 },
-        { transform:'translateX(-50%) translateY(-' + (2.5*s) + 'px) scale(.995,' + liftY + ')', offset:.68 },
-        { transform:'translateX(-50%) translateY(0) scale(1,1)', offset:1 }
-      ],
-      { duration:190, easing:'ease-in-out' }
-    );
-    anim.onfinish = function(){ anim.cancel(); resolve(); };
+    monster.classList.remove('bite');
+    void monster.offsetWidth;
+    monster.classList.add('bite');
+
+    const delay = 165 + (biteNumber || 1) * 6;
+    setTimeout(function(){
+      monster.classList.remove('bite');
+      resolve();
+    }, delay);
   });
 }
 
-async function biteCookie(img, mouthX, mouthY, scaleBefore, scaleAfter, clipShape, biteNumber) {
-  const inY = mouthY + 10;
-  const outY = mouthY - 7;
+async function biteCookie(monster, mouthX, mouthY, scaleBefore, scaleAfter, clipShape, biteNumber) {
+  const inY = mouthY + 3;
+  const outY = mouthY - 9;
 
   const cookieIn = animateAndCommit(
     cookie,
@@ -420,7 +414,7 @@ async function biteCookie(img, mouthX, mouthY, scaleBefore, scaleAfter, clipShap
     { duration:105, easing:'ease-in', fill:'forwards' }
   );
 
-  await Promise.all([cookieIn, chompMonster(img, 1 + biteNumber*.05)]);
+  await Promise.all([cookieIn, pulseMouth(monster, biteNumber)]);
 
   cookie.style.clipPath = clipShape;
   spawnBiteCrumbs(mouthX + 8, mouthY + 3);
@@ -453,8 +447,12 @@ async function flyCookie(monster, startX, startY) {
   const m = img.getBoundingClientRect();
   const g = game.getBoundingClientRect();
 
-  const mouthX = (m.left + m.width * .50) - g.left;
-  const mouthY = (m.top + m.height * .50) - g.top;
+  const isShortMonster = monster.id === 'shortMonster';
+
+  // Precise mouth anchors for the two exact monster artworks.
+  // These are intentionally above the image centre: right inside the open mouth.
+  const mouthX = (m.left + m.width * (isShortMonster ? .535 : .505)) - g.left;
+  const mouthY = (m.top + m.height * (isShortMonster ? .435 : .455)) - g.top;
 
   await animateAndCommit(
     cookie,
@@ -481,12 +479,13 @@ async function flyCookie(monster, startX, startY) {
   const bite2 = 'polygon(0 0,100% 0,100% 18%,89% 24%,97% 31%,85% 38%,96% 45%,83% 52%,96% 59%,85% 66%,97% 73%,89% 80%,100% 86%,100% 100%,0 100%)';
   const bite3 = 'polygon(0 0,92% 0,84% 8%,91% 15%,80% 22%,89% 29%,78% 36%,87% 43%,76% 50%,87% 57%,78% 64%,89% 71%,80% 78%,91% 85%,84% 92%,92% 100%,0 100%)';
 
-  await biteCookie(img, mouthX, mouthY, .58, .49, bite1, 1);
+  await biteCookie(monster, mouthX, mouthY, .58, .49, bite1, 1);
   await new Promise(function(r){ setTimeout(r, 55); });
-  await biteCookie(img, mouthX, mouthY, .49, .39, bite2, 2);
+  await biteCookie(monster, mouthX, mouthY, .49, .39, bite2, 2);
   await new Promise(function(r){ setTimeout(r, 55); });
-  await biteCookie(img, mouthX, mouthY, .39, .27, bite3, 3);
+  await biteCookie(monster, mouthX, mouthY, .39, .27, bite3, 3);
 
+  monster.classList.remove('bite');
   monster.classList.add('chewing');
 
   await animateAndCommit(
@@ -501,7 +500,7 @@ async function flyCookie(monster, startX, startY) {
       },
       {
         left:mouthX + 'px',
-        top:(mouthY + 13) + 'px',
+        top:(mouthY + 4) + 'px',
         transform:'translate(-50%,-50%) rotate(12deg) scale(.06)',
         opacity:'0',
         clipPath:bite3
