@@ -792,3 +792,9 @@ button{font:inherit}
   45%{transform:translateX(-50%) translateY(2px) scale(1.018,.968)}
   70%{transform:translateX(-50%) translateY(-2px) scale(.997,1.016)}
 }
+
+
+/* ===== 2026-10-15 correct front/top mouth trajectory ===== */
+/* .playfield must sit above the monsters so the cookie never passes behind them. */
+.playfield{z-index:25!important}
+.cookie{z-index:60!important}
