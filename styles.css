@@ -798,3 +798,41 @@ button{font:inherit}
 /* .playfield must sit above the monsters so the cookie never passes behind them. */
 .playfield{z-index:25!important}
 .cookie{z-index:60!important}
+
+
+/* ===== 2026-10-15 beginner-friendly letterforms =====
+   Comic Sans MS uses simple single-storey a / g, which are easier
+   for early readers to recognise. */
+:root{
+  --kid-font:"Comic Sans MS","Comic Sans","Chalkboard SE","Segoe Print",cursive;
+}
+
+body,
+button{
+  font-family:var(--kid-font)!important;
+}
+
+/* Keep the game logo cleaner and more display-like. */
+.brand-top{
+  font-family:"Trebuchet MS","Arial Rounded MT Bold",system-ui,sans-serif!important;
+}
+
+/* Reading target: make the phonics word especially clear. */
+.cookie span{
+  font-family:var(--kid-font)!important;
+  font-weight:700!important;
+  letter-spacing:.2px!important;
+  line-height:1!important;
+}
+
+/* Child-facing labels and choices use the same recognisable letter shapes. */
+.prompt,
+.monster-card,
+.letter-btn,
+.level-btn,
+.start-btn,
+.menu-btn,
+.mode-pill,
+.start-card{
+  font-family:var(--kid-font)!important;
+}
