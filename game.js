@@ -312,9 +312,10 @@ function correct(monster) {
   goodSound();
 
   const c = cookie.getBoundingClientRect();
-  const g = game.getBoundingClientRect();
-  const frozenX = (c.left + c.width / 2) - g.left;
-  const frozenY = (c.top + c.height / 2) - g.top;
+  const stage = cookie.offsetParent || document.querySelector('.playfield');
+  const stageRect = stage.getBoundingClientRect();
+  const frozenX = (c.left + c.width / 2) - stageRect.left;
+  const frozenY = (c.top + c.height / 2) - stageRect.top;
 
   cookie.classList.remove('falling','wrong');
   cookie.getAnimations().forEach(function(a){ a.cancel(); });
@@ -456,14 +457,23 @@ async function biteCookie(monster, mouthX, mouthY, scaleBefore, scaleAfter, clip
 async function flyCookie(monster, startX, startY) {
   const img = monster.querySelector('.monster-base') || monster;
   const m = img.getBoundingClientRect();
-  const g = game.getBoundingClientRect();
+
+  // IMPORTANT: cookie is positioned inside .playfield, so every target point
+  // must be converted into the playfield coordinate system.
+  const stage = cookie.offsetParent || document.querySelector('.playfield');
+  const stageRect = stage.getBoundingClientRect();
 
   const isShortMonster = monster.id === 'shortMonster';
 
-  // Precise mouth anchors for the two exact monster artworks.
-  // These are intentionally above the image centre: right inside the open mouth.
-  const mouthX = (m.left + m.width * (isShortMonster ? .525 : .505)) - g.left;
-  const mouthY = (m.top + m.height * (isShortMonster ? .405 : .425)) - g.top;
+  // Exact visible mouth centres for the two final monster artworks.
+  const mouthX = (m.left + m.width * (isShortMonster ? .53 : .50)) - stageRect.left;
+  const mouthY = (m.top + m.height * (isShortMonster ? .46 : .48)) - stageRect.top;
+
+  // Approach from ABOVE the mouth, in front of the monster.
+  const approachX = mouthX;
+  const approachY = mouthY - 62;
+
+  cookie.style.zIndex = '60';
 
   await animateAndCommit(
     cookie,
@@ -475,13 +485,35 @@ async function flyCookie(monster, startX, startY) {
         opacity:'1'
       },
       {
-        left:mouthX + 'px',
-        top:(mouthY - 7) + 'px',
-        transform:'translate(-50%,-50%) rotate(8deg) scale(.58)',
+        left:approachX + 'px',
+        top:approachY + 'px',
+        transform:'translate(-50%,-50%) rotate(5deg) scale(.66)',
         opacity:'1'
       }
     ],
-    { duration:510, easing:'cubic-bezier(.2,.82,.22,1)', fill:'forwards' }
+    { duration:410, easing:'cubic-bezier(.2,.82,.22,1)', fill:'forwards' }
+  );
+
+  await new Promise(function(r){ setTimeout(r, 35); });
+
+  // Final vertical drop: straight down into the open mouth.
+  await animateAndCommit(
+    cookie,
+    [
+      {
+        left:approachX + 'px',
+        top:approachY + 'px',
+        transform:'translate(-50%,-50%) rotate(5deg) scale(.66)',
+        opacity:'1'
+      },
+      {
+        left:mouthX + 'px',
+        top:mouthY + 'px',
+        transform:'translate(-50%,-50%) rotate(9deg) scale(.56)',
+        opacity:'1'
+      }
+    ],
+    { duration:185, easing:'cubic-bezier(.35,0,.65,1)', fill:'forwards' }
   );
 
   monster.classList.remove('feeding');
@@ -490,11 +522,11 @@ async function flyCookie(monster, startX, startY) {
   const bite2 = 'polygon(0 0,100% 0,100% 18%,89% 24%,97% 31%,85% 38%,96% 45%,83% 52%,96% 59%,85% 66%,97% 73%,89% 80%,100% 86%,100% 100%,0 100%)';
   const bite3 = 'polygon(0 0,92% 0,84% 8%,91% 15%,80% 22%,89% 29%,78% 36%,87% 43%,76% 50%,87% 57%,78% 64%,89% 71%,80% 78%,91% 85%,84% 92%,92% 100%,0 100%)';
 
-  await biteCookie(monster, mouthX, mouthY, .58, .49, bite1, 1);
-  await new Promise(function(r){ setTimeout(r, 55); });
-  await biteCookie(monster, mouthX, mouthY, .49, .39, bite2, 2);
-  await new Promise(function(r){ setTimeout(r, 55); });
-  await biteCookie(monster, mouthX, mouthY, .39, .27, bite3, 3);
+  await biteCookie(monster, mouthX, mouthY, .56, .47, bite1, 1);
+  await new Promise(function(r){ setTimeout(r, 45); });
+  await biteCookie(monster, mouthX, mouthY, .47, .37, bite2, 2);
+  await new Promise(function(r){ setTimeout(r, 45); });
+  await biteCookie(monster, mouthX, mouthY, .37, .25, bite3, 3);
 
   monster.classList.remove('bite');
   monster.classList.add('chewing');
@@ -504,23 +536,23 @@ async function flyCookie(monster, startX, startY) {
     [
       {
         left:mouthX + 'px',
-        top:(mouthY - 7) + 'px',
-        transform:'translate(-50%,-50%) rotate(8deg) scale(.27)',
+        top:(mouthY - 5) + 'px',
+        transform:'translate(-50%,-50%) rotate(8deg) scale(.25)',
         opacity:'1',
         clipPath:bite3
       },
       {
         left:mouthX + 'px',
-        top:(mouthY + 2) + 'px',
-        transform:'translate(-50%,-50%) rotate(12deg) scale(.06)',
+        top:(mouthY + 3) + 'px',
+        transform:'translate(-50%,-50%) rotate(11deg) scale(.05)',
         opacity:'0',
         clipPath:bite3
       }
     ],
-    { duration:180, easing:'ease-in', fill:'forwards' }
+    { duration:175, easing:'ease-in', fill:'forwards' }
   );
 
-  await new Promise(function(r){ setTimeout(r, 150); });
+  await new Promise(function(r){ setTimeout(r, 140); });
   monster.classList.remove('chewing');
   cookie.style.opacity = '0';
   cookie.style.clipPath = 'none';
