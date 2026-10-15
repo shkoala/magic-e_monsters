@@ -299,6 +299,8 @@ function wrong(monster) {
 }
 
 function correct(monster) {
+  if (locked || !current) return;
+
   locked = true;
   clearTimeout(fallTimer);
   clearTimeout(wrongResumeTimer);
@@ -309,58 +311,150 @@ function correct(monster) {
   streakEl.textContent = String(streak);
   goodSound();
 
-  monster.classList.remove('good','bad','feeding');
-  void monster.offsetWidth;
-  monster.classList.add('feeding');
+  // Freeze the cookie exactly where the learner clicked.
+  const c = cookie.getBoundingClientRect();
+  const g = game.getBoundingClientRect();
+  const frozenX = (c.left + c.width / 2) - g.left;
+  const frozenY = (c.top + c.height / 2) - g.top;
 
   cookie.classList.remove('falling','wrong');
   cookie.getAnimations().forEach(function(a){ a.cancel(); });
+  cookie.style.transition = 'none';
+  cookie.style.left = frozenX + 'px';
+  cookie.style.top = frozenY + 'px';
+  cookie.style.marginLeft = '0px';
+  cookie.style.transform = 'translate(-50%,-50%) rotate(0deg) scale(1)';
+  cookie.style.opacity = '1';
 
-  flyCookie(monster).then(function(){
-    monster.classList.remove('feeding');
+  monster.classList.remove('good','bad','feeding','chewing');
+  void monster.offsetWidth;
+  monster.classList.add('feeding');
+
+  flyCookie(monster, frozenX, frozenY).then(function(){
+    monster.classList.remove('feeding','chewing');
     void monster.offsetWidth;
     monster.classList.add('good');
-    setTimeout(function(){ monster.classList.remove('good'); }, 780);
+    setTimeout(function(){ monster.classList.remove('good'); }, 650);
 
-    crunch();
     showFeedback(streak >= 5 ? 'AMAZING! ×' + streak : streak >= 3 ? 'Super! ×' + streak : 'Yum! ✓', false);
     if (streak >= 3) burst(Math.min(26, 10 + streak * 2));
     round++;
     progressBar.style.width = (round / deck.length * 100) + '%';
-    setTimeout(nextCookie, 520);
+    setTimeout(nextCookie, 560);
   });
 }
 
-function flyCookie(monster) {
+function spawnBiteCrumbs(x, y) {
+  const vectors = [
+    [-22,-18], [19,-16], [-27,3], [24,5],
+    [-14,18], [15,20]
+  ];
+
+  vectors.forEach(function(v, i){
+    const crumb = document.createElement('i');
+    crumb.className = 'bite-crumb';
+    crumb.style.left = x + 'px';
+    crumb.style.top = y + 'px';
+    crumb.style.setProperty('--crumb-x', v[0] + 'px');
+    crumb.style.setProperty('--crumb-y', v[1] + 'px');
+    crumb.style.animationDelay = (i * 12) + 'ms';
+    game.appendChild(crumb);
+    setTimeout(function(){ crumb.remove(); }, 650);
+  });
+}
+
+function flyCookie(monster, startX, startY) {
   return new Promise(function(resolve){
-    const c = cookie.getBoundingClientRect();
     const img = monster.querySelector('.monster-base') || monster;
     const m = img.getBoundingClientRect();
     const g = game.getBoundingClientRect();
 
-    const targetX = (m.left + m.width * .50) - g.left;
-    const targetY = (m.top + m.height * .50) - g.top;
-    const centerX = (c.left + c.width / 2) - g.left;
-    const centerY = (c.top + c.height / 2) - g.top;
+    // Both supplied monster images have the mouth almost exactly here.
+    const mouthX = (m.left + m.width * .50) - g.left;
+    const mouthY = (m.top + m.height * .49) - g.top;
 
-    cookie.style.left = centerX + 'px';
-    cookie.style.top = centerY + 'px';
-    cookie.style.marginLeft = '0px';
-    cookie.style.transform = 'translate(-50%,-50%) rotate(0deg) scale(1)';
-    cookie.style.opacity = '1';
-    void cookie.offsetWidth;
+    const anim = cookie.animate(
+      [
+        {
+          left: startX + 'px',
+          top: startY + 'px',
+          transform: 'translate(-50%,-50%) rotate(0deg) scale(1)',
+          opacity: 1,
+          offset: 0
+        },
+        {
+          left: mouthX + 'px',
+          top: mouthY + 'px',
+          transform: 'translate(-50%,-50%) rotate(12deg) scale(.46)',
+          opacity: 1,
+          offset: .42
+        },
 
-    cookie.style.transition =
-      'left .58s cubic-bezier(.22,.9,.24,1), ' +
-      'top .58s cubic-bezier(.22,.9,.24,1), ' +
-      'transform .58s ease-in, opacity .14s linear .43s';
+        // Three visible bites: in → out a little → smaller.
+        {
+          left: mouthX + 'px',
+          top: (mouthY + 8) + 'px',
+          transform: 'translate(-50%,-50%) rotate(14deg) scale(.42)',
+          opacity: 1,
+          offset: .51
+        },
+        {
+          left: mouthX + 'px',
+          top: (mouthY - 4) + 'px',
+          transform: 'translate(-50%,-50%) rotate(9deg) scale(.34)',
+          opacity: 1,
+          offset: .61
+        },
+        {
+          left: mouthX + 'px',
+          top: (mouthY + 8) + 'px',
+          transform: 'translate(-50%,-50%) rotate(13deg) scale(.29)',
+          opacity: 1,
+          offset: .71
+        },
+        {
+          left: mouthX + 'px',
+          top: (mouthY - 3) + 'px',
+          transform: 'translate(-50%,-50%) rotate(8deg) scale(.21)',
+          opacity: 1,
+          offset: .81
+        },
+        {
+          left: mouthX + 'px',
+          top: (mouthY + 8) + 'px',
+          transform: 'translate(-50%,-50%) rotate(12deg) scale(.13)',
+          opacity: 1,
+          offset: .91
+        },
+        {
+          left: mouthX + 'px',
+          top: (mouthY + 12) + 'px',
+          transform: 'translate(-50%,-50%) rotate(10deg) scale(.04)',
+          opacity: 0,
+          offset: 1
+        }
+      ],
+      {
+        duration: 980,
+        easing: 'linear',
+        fill: 'forwards'
+      }
+    );
 
-    cookie.style.left = targetX + 'px';
-    cookie.style.top = targetY + 'px';
-    cookie.style.transform = 'translate(-50%,-50%) rotate(18deg) scale(.12)';
-    cookie.style.opacity = '0';
+    setTimeout(function(){
+      monster.classList.remove('feeding');
+      monster.classList.add('chewing');
+    }, 405);
 
-    setTimeout(resolve, 600);
+    setTimeout(function(){ spawnBiteCrumbs(mouthX, mouthY); crunch(); }, 490);
+    setTimeout(function(){ spawnBiteCrumbs(mouthX, mouthY); crunch(); }, 675);
+    setTimeout(function(){ spawnBiteCrumbs(mouthX, mouthY); crunch(); }, 855);
+
+    anim.onfinish = function(){
+      cookie.style.opacity = '0';
+      monster.classList.remove('chewing');
+      resolve();
+    };
   });
 }
 
