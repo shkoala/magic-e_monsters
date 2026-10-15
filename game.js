@@ -324,7 +324,7 @@ function correct(monster) {
   cookie.style.marginLeft = '0px';
   cookie.style.transform = 'translate(-50%,-50%) rotate(0deg) scale(1)';
   cookie.style.opacity = '1';
-  cookie.style.clipPath = 'polygon(0 0,100% 0,100% 100%,0 100%)';
+  cookie.style.clipPath = 'none';
 
   monster.classList.remove('good','bad','feeding','chewing');
   void monster.offsetWidth;
@@ -379,12 +379,16 @@ function animateAndCommit(el, frames, options) {
 
 function chompMonster(img, strength) {
   const s = strength || 1;
+  const squashX = (1 + .028 * s).toFixed(3);
+  const squashY = (1 - .045 * s).toFixed(3);
+  const liftY = (1 + .018 * s).toFixed(3);
+
   return new Promise(function(resolve){
     const anim = img.animate(
       [
         { transform:'translateX(-50%) translateY(0) scale(1,1)', offset:0 },
-        { transform:'translateX(-50%) translateY(' + (5*s) + 'px) scale(' + (1.035*s) + ',' + (0.945 + .01/s) + ')', offset:.34 },
-        { transform:'translateX(-50%) translateY(-' + (3*s) + 'px) scale(.99,1.025)', offset:.68 },
+        { transform:'translateX(-50%) translateY(' + (4*s) + 'px) scale(' + squashX + ',' + squashY + ')', offset:.34 },
+        { transform:'translateX(-50%) translateY(-' + (2.5*s) + 'px) scale(.995,' + liftY + ')', offset:.68 },
         { transform:'translateX(-50%) translateY(0) scale(1,1)', offset:1 }
       ],
       { duration:190, easing:'ease-in-out' }
@@ -459,15 +463,13 @@ async function flyCookie(monster, startX, startY) {
         left:startX + 'px',
         top:startY + 'px',
         transform:'translate(-50%,-50%) rotate(0deg) scale(1)',
-        opacity:'1',
-        clipPath:'polygon(0 0,100% 0,100% 100%,0 100%)'
+        opacity:'1'
       },
       {
         left:mouthX + 'px',
         top:(mouthY - 7) + 'px',
         transform:'translate(-50%,-50%) rotate(8deg) scale(.58)',
-        opacity:'1',
-        clipPath:'polygon(0 0,100% 0,100% 100%,0 100%)'
+        opacity:'1'
       }
     ],
     { duration:510, easing:'cubic-bezier(.2,.82,.22,1)', fill:'forwards' }
