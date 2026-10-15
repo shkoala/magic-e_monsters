@@ -677,3 +677,91 @@ button{font:inherit}
     inset 0 1px 0 rgba(255,236,181,.8),
     0 1px 2px rgba(94,50,10,.18);
 }
+
+
+/* ===== 2026-10-15 real mouth movement from the exact artwork ===== */
+/* These layers use the SAME original monster image and align perfectly
+   over the base. Only narrow bands around the real mouth are visible. */
+.mouth-layer{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  z-index:6!important;
+  pointer-events:none!important;
+  width:min(94%,455px)!important;
+  max-height:94%!important;
+  bottom:50px!important;
+  object-fit:contain!important;
+  animation:none!important;
+  transform:translateX(-50%)!important;
+  transform-origin:50% 50%!important;
+  will-change:transform;
+}
+
+/* Orange monster: mouth starts a little higher. */
+.mouth-upper-short{
+  clip-path:polygon(27% 30%,80% 30%,80% 44%,27% 44%);
+}
+.mouth-lower-short{
+  clip-path:polygon(28% 47%,79% 47%,79% 62%,28% 62%);
+}
+
+/* Blue monster. */
+.mouth-upper-magic{
+  clip-path:polygon(25% 31%,77% 31%,77% 45%,25% 45%);
+}
+.mouth-lower-magic{
+  clip-path:polygon(26% 49%,76% 49%,76% 65%,26% 65%);
+}
+
+/* One visible bite: upper jaw goes down, lower jaw goes up. */
+.monster-zone.bite .mouth-upper{
+  animation:realUpperBite .17s ease-in-out 1!important;
+}
+.monster-zone.bite .mouth-lower{
+  animation:realLowerBite .17s ease-in-out 1!important;
+}
+
+@keyframes realUpperBite{
+  0%,100%{transform:translateX(-50%) translateY(0) scaleY(1)}
+  46%{transform:translateX(-50%) translateY(9px) scaleY(.975)}
+  62%{transform:translateX(-50%) translateY(11px) scaleY(.965)}
+}
+@keyframes realLowerBite{
+  0%,100%{transform:translateX(-50%) translateY(0) scaleY(1)}
+  46%{transform:translateX(-50%) translateY(-10px) scaleY(.975)}
+  62%{transform:translateX(-50%) translateY(-12px) scaleY(.965)}
+}
+
+/* After the cookie disappears, the same lips make two short chewing motions. */
+.monster-zone.chewing .mouth-upper{
+  animation:realUpperChew .38s ease-in-out 2!important;
+}
+.monster-zone.chewing .mouth-lower{
+  animation:realLowerChew .38s ease-in-out 2!important;
+}
+@keyframes realUpperChew{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  48%{transform:translateX(-50%) translateY(6px)}
+}
+@keyframes realLowerChew{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  48%{transform:translateX(-50%) translateY(-7px)}
+}
+
+/* Keep the whole body almost still while the mouth itself works. */
+.monster-zone.feeding .monster-base{
+  animation:tinyAnticipation .42s ease-out 1!important;
+}
+.monster-zone.chewing .monster-base{
+  animation:tinyChewBody .38s ease-in-out 2!important;
+}
+@keyframes tinyAnticipation{
+  0%{transform:translateX(-50%) translateY(0)}
+  60%{transform:translateX(-50%) translateY(-3px)}
+  100%{transform:translateX(-50%) translateY(0)}
+}
+@keyframes tinyChewBody{
+  0%,100%{transform:translateX(-50%) translateY(0) scale(1)}
+  50%{transform:translateX(-50%) translateY(1px) scale(1.008,.995)}
+}
