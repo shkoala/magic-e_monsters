@@ -607,3 +607,54 @@ button{font:inherit}
   72%{transform:translateX(-50%) rotate(5deg)}
   100%{transform:translateX(-50%) rotate(0)}
 }
+
+
+/* ===== 2026-10-15 three-bite chewing ===== */
+.monster-zone.feeding .monster-base{
+  animation:leanToCookie .42s ease-out 1!important;
+}
+.monster-zone.chewing .monster-base{
+  animation:threeChews .58s ease-in-out 1!important;
+  filter:drop-shadow(0 0 20px rgba(255,255,255,.62))!important;
+}
+.monster-zone.good .monster-base{
+  animation:swallowHappy .58s cubic-bezier(.2,.75,.2,1.15) 1!important;
+}
+@keyframes leanToCookie{
+  0%{transform:translateX(-50%) translateY(0) scale(1,1)}
+  70%{transform:translateX(-50%) translateY(-6px) scale(1.025,.985)}
+  100%{transform:translateX(-50%) translateY(-4px) scale(1.02,.99)}
+}
+@keyframes threeChews{
+  0%{transform:translateX(-50%) translateY(-4px) scale(1.02,.99)}
+  12%{transform:translateX(-50%) translateY(1px) scale(1.035,.955)}
+  24%{transform:translateX(-50%) translateY(-5px) scale(.99,1.035)}
+  38%{transform:translateX(-50%) translateY(1px) scale(1.035,.955)}
+  50%{transform:translateX(-50%) translateY(-5px) scale(.99,1.035)}
+  64%{transform:translateX(-50%) translateY(1px) scale(1.035,.955)}
+  76%{transform:translateX(-50%) translateY(-5px) scale(.99,1.035)}
+  100%{transform:translateX(-50%) translateY(0) scale(1,1)}
+}
+@keyframes swallowHappy{
+  0%{transform:translateX(-50%) translateY(0) scale(1)}
+  40%{transform:translateX(-50%) translateY(-18px) scale(1.05)}
+  72%{transform:translateX(-50%) translateY(-5px) scale(.995,1.025)}
+  100%{transform:translateX(-50%) translateY(0) scale(1)}
+}
+.bite-crumb{
+  position:absolute;
+  z-index:45;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#c9791f;
+  box-shadow:inset 0 1px 0 rgba(255,231,159,.7);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  animation:crumbBurst .5s ease-out forwards;
+}
+.bite-crumb:nth-of-type(even){width:6px;height:6px;background:#efad42}
+@keyframes crumbBurst{
+  0%{transform:translate(-50%,-50%) scale(1);opacity:1}
+  100%{transform:translate(calc(-50% + var(--crumb-x)),calc(-50% + var(--crumb-y))) scale(.3);opacity:0}
+}
