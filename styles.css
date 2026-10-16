@@ -959,3 +959,72 @@ button{
     font-size:12px;
   }
 }
+
+
+/* ===== 2026-10-16 font correction + full Cole ===== */
+/* Restore the clean UI font. Only the phonics word uses beginner letterforms. */
+body,
+button,
+.prompt,
+.monster-card,
+.letter-btn,
+.level-btn,
+.start-btn,
+.menu-btn,
+.mode-pill,
+.start-card,
+.cole-welcome,
+.cole-welcome h1,
+.cole-welcome .intro{
+  font-family:"Trebuchet MS","Arial Rounded MT Bold",system-ui,sans-serif!important;
+}
+
+/* The word the child READS: simple single-storey a and g. */
+.cookie span{
+  font-family:"Comic Sans MS","Comic Sans","Chalkboard SE","Segoe Print",cursive!important;
+  font-weight:700!important;
+  letter-spacing:.15px!important;
+  line-height:1!important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+}
+
+/* Cole must be visible from hat to shoes. */
+.cole-welcome{
+  min-height:154px!important;
+  padding-right:112px!important;
+  overflow:hidden!important;
+}
+.cole-welcome-img{
+  width:auto!important;
+  height:144px!important;
+  max-height:calc(100% - 8px)!important;
+  right:20px!important;
+  bottom:4px!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+}
+
+@media(max-width:650px){
+  .cole-welcome{
+    min-height:126px!important;
+    padding-right:88px!important;
+  }
+  .cole-welcome-img{
+    height:116px!important;
+    right:10px!important;
+    bottom:4px!important;
+  }
+}
+
+@media(max-height:700px){
+  .cole-welcome{
+    min-height:108px!important;
+    padding-right:82px!important;
+  }
+  .cole-welcome-img{
+    height:98px!important;
+    right:10px!important;
+    bottom:4px!important;
+  }
+}
